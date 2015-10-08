@@ -116,6 +116,7 @@ public class ImageSlidingGallery extends FrameLayout {
         public void run() {
             super.run();
             for (int i = 0; i < mViewList.size(); i++) {
+                Log.i(TAG, "i="+i);
                 Message msg = Message.obtain(mUiHandler);
                 msg.what = mType;
                 Bundle data = new Bundle();

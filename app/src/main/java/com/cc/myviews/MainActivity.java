@@ -1,15 +1,11 @@
 package com.cc.myviews;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.cc.myviews.galleryview.GalleryActivity;
+import com.cc.myviews.galleryview.galleryActivity;
 
 public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
@@ -41,7 +37,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, GalleryActivity.class);
+        Intent intent = new Intent(this, galleryActivity.class);
         startActivity(intent);
     }
 
