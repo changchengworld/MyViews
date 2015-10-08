@@ -1,4 +1,4 @@
-package com.cc.myviews.galleryview;
+package com.cc.myviews;
 
 import android.content.Context;
 import android.os.Bundle;
