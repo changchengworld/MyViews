@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment{
         mParentContext = getActivity();
         View view = loadView(inflater);
         findView(view);
+        setListener();
         init();
         return view;
     }
@@ -30,5 +31,5 @@ public abstract class BaseFragment extends Fragment{
 
     protected abstract void init();
 
-
+    protected void setListener(){}
 }

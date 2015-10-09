@@ -41,6 +41,7 @@ public class ImageSlidingGallery extends FrameLayout {
     private AntiAliasImageView mLastChildView;
     private int screenWidth;
     private int mViewLeftX;
+    private boolean isRotating;
 
     public ImageSlidingGallery(Context context) {
         this(context, null, 0);
@@ -96,7 +97,6 @@ public class ImageSlidingGallery extends FrameLayout {
             mViewList.add(childView);
         }
         mLastChildView = mViewList.get(childNum - 1);
-        Log.i(TAG, "mLastChildView = " + mLastChildView.toString());
     }
 
     public void initAnim() {
@@ -116,7 +116,6 @@ public class ImageSlidingGallery extends FrameLayout {
         public void run() {
             super.run();
             for (int i = 0; i < mViewList.size(); i++) {
-                Log.i(TAG, "i="+i);
                 Message msg = Message.obtain(mUiHandler);
                 msg.what = mType;
                 Bundle data = new Bundle();
@@ -128,33 +127,44 @@ public class ImageSlidingGallery extends FrameLayout {
         }
     }
 
+    /**
+     * 初始化时子view的进入动画
+     * @param cycleNum
+     */
     private void processAnimInit(int cycleNum) {
-
         AntiAliasImageView view = mViewList.get(cycleNum);
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.anim_init_in);
         view.setVisibility(View.VISIBLE);
         view.startAnimation(animation);
     }
 
+    /**
+     * 子view旋转的动画
+     * @param cycleNum
+     */
     private void processAnimRotate(int cycleNum) {
         if (cycleNum == mViewList.size() - 1) {
+            isRotating = false;
             return;
         }
         AntiAliasImageView view = mViewList.get(mViewList.size() - 1 - cycleNum);
         float rotationDegree = view.getRotation();
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotation", rotationDegree, rotationDegree - CHILDVIEWROTATEDEGREE);
+        animator.setDuration(200);
         animator.start();
     }
 
     class MyViewDragCallBack extends ViewDragHelper.Callback {
 
-
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             if (changedView.getRight() <= screenWidth / 3 || left >= screenWidth * 2 / 3) {
-                mViewDragHelper.abort();
-                orderViewList();
-            } else {
+                if (!isRotating) {
+                    isRotating = true;
+                    mViewDragHelper.abort();
+                    orderViewList();
+                }
+            } else if (changedView.getRotation() == 0) {
                 processGradualAlpha(changedView, left);
             }
         }
@@ -168,28 +178,25 @@ public class ImageSlidingGallery extends FrameLayout {
         }
 
         @Override
-        public int getViewHorizontalDragRange(View child) {
+        public int getViewHorizontalDragRange(View child) {//横向拖动的范围
             return screenWidth / 2;
         }
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
-            Log.i(TAG, "xvel=" + xvel);
-            Log.i(TAG, "yvel=" + yvel);
-//            animToFade(xvel);
             int finalLeft = mViewLeftX;
             if (xvel > XVEL_THRESHOLD) {
                 finalLeft = screenWidth;
             } else if (xvel < -XVEL_THRESHOLD) {
-                finalLeft = -releasedChild.getWidth();
+                finalLeft = -mLastChildView.getWidth();
             } else {
-                if (releasedChild.getLeft() > screenWidth / 2) {
+                if (mLastChildView.getLeft() > screenWidth / 2) {
                     finalLeft = screenWidth;
-                } else if (releasedChild.getRight() < screenWidth / 2) {
-                    finalLeft = -releasedChild.getWidth();
+                } else if (mLastChildView.getRight() < screenWidth / 2) {
+                    finalLeft = -mLastChildView.getWidth();
                 }
             }
-            if (mViewDragHelper.smoothSlideViewTo(releasedChild, finalLeft, releasedChild.getTop())) {
+            if (mViewDragHelper.smoothSlideViewTo(mLastChildView, finalLeft, mLastChildView.getTop())) {
                 ViewCompat.postInvalidateOnAnimation(ImageSlidingGallery.this);
             }
         }
@@ -205,6 +212,12 @@ public class ImageSlidingGallery extends FrameLayout {
         }
     }
 
+    /**
+     * 拖动中改变控件的透明度
+     *
+     * @param changedView
+     * @param left
+     */
     private void processGradualAlpha(View changedView, int left) {
         int halfScreenWidth = screenWidth / 2;
         float alpha = 1f;
@@ -217,17 +230,29 @@ public class ImageSlidingGallery extends FrameLayout {
     }
 
     @Override
+    public void computeScroll() {
+        if (mViewDragHelper.continueSettling(true)) {
+            ViewCompat.postInvalidateOnAnimation(this);
+        }
+    }
+
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         mViewLeftX = mLastChildView.getLeft();
     }
 
+    /**
+     * 对子控件重新排序
+     */
     private void orderViewList() {
         int num = mViewList.size();
+        //将除了位于最表层的图层外逐一移动到前段
         for (int i = 0; i < num - 1; i++) {
             AntiAliasImageView tempView = mViewList.get(i);
             tempView.bringToFront();
         }
+        //初始化最后面的view旋转度和透明度
         mLastChildView.setAlpha(1f);
         mLastChildView.setRotation((num - 1) * CHILDVIEWROTATEDEGREE);
         mViewList.remove(num - 1);
@@ -237,45 +262,38 @@ public class ImageSlidingGallery extends FrameLayout {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {//必须实现
+        //判断父控件是否拦截此事件
         boolean shouldInterceptTouchEvent = mViewDragHelper.shouldInterceptTouchEvent(ev);
         int actionMasked = ev.getActionMasked();
         if (actionMasked == MotionEvent.ACTION_DOWN) {
+            //按下时将事件传递给draghelper
             mViewDragHelper.processTouchEvent(ev);
         }
         return shouldInterceptTouchEvent;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {//必须实现
+        //将事件传递给draghelper
         mViewDragHelper.processTouchEvent(event);
+        //返回true标示消费此事件
         return true;
     }
 
-
-    private void animToFade(float xvel) {
-        // ����ǻ�����ʧ��xĿ��λ��
-        // ��������һ���������Ҫ���������finalLeft
+    //点击左右点击区域切换图片
+    public void clickToFade(int type) {
         int finalLeft = mViewLeftX;
-
-        if (xvel > XVEL_THRESHOLD) {
-            // x�������ٶȴ���XVEL_THRESHOLDʱ����ֱ�����ҷ�����ʧ
-            finalLeft = screenWidth;
-        } else if (xvel < -XVEL_THRESHOLD) {
-            // x�������ٶȴ���XVEL_THRESHOLDʱ����ֱ�����������ʧ
+        if (type == 0) {
             finalLeft = -mLastChildView.getWidth();
+        } else if (type == 1) {
+            finalLeft = screenWidth;
         } else {
-            // �����Ƿ��Խ���м��ߣ����ж��Ƿ�������ʧ
-            if (mLastChildView.getLeft() > screenWidth / 2) {
-                finalLeft = screenWidth;
-            } else if (mLastChildView.getRight() < screenWidth / 2) {
-                finalLeft = -mLastChildView.getWidth();
-            }
         }
-
-        if (mViewDragHelper.smoothSlideViewTo(mLastChildView, finalLeft,
-                mLastChildView.getTop())) {
+        if (mViewDragHelper.smoothSlideViewTo(mLastChildView, finalLeft, mLastChildView.getTop())) {
+            //刷新此控件，跟invalidate方法作用一样，区别在于会在此控件执行下一步动画之前刷新该控件
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
+
 }

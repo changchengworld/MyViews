@@ -96,6 +96,20 @@
             android:layout_centerHorizontal="true"
             android:src="@mipmap/up"/>
 
+        <View
+            android:id="@+id/left_click_area"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+
+        <View
+            android:id="@+id/right_click_area"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
     </RelativeLayout>
 
 </RelativeLayout>
