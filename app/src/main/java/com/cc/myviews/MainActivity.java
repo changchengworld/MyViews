@@ -11,6 +11,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private GridView gv;
     private String[] names;
+    private String[] packageNames;
 
     @Override
     protected void loadView() {
@@ -21,27 +22,33 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     protected void setListener() {
         gv.setOnItemClickListener(this);
     }
+
     @Override
     protected void initView() {
         MainAdapter adapter = new MainAdapter(this, names);
         gv.setAdapter(adapter);
     }
+
     @Override
     protected void initData() {
-        names = new String[]{"ViewGallery"};
+        names = new String[]{"galleryActivity", "YoutubeDragActivity"};
+        packageNames = new String[]{"galleryview", "youtubeDragView"};
     }
+
     @Override
     protected void findView() {
-        gv = (GridView)findViewById(R.id.gv);
+        gv = (GridView) findViewById(R.id.gv);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, galleryActivity.class);
-        startActivity(intent);
-    }
-
-    private void startActivityByAcitvityName(ActivityName NAME){
-
+        Intent intent = null;
+        try {
+            intent = new Intent(this, Class.forName("com.cc.myviews."+packageNames[position]+"."+names[position]));
+//            intent = new Intent(this, galleryActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
