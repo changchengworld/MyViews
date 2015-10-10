@@ -13,7 +13,7 @@ import com.cc.myviews.R;
  */
 public class YoutubeDragFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     private ListView lv;
-    private YoutubeLayout youtubeLayout;
+    private YoutubeDragView youtubeLayout;
 
     @Override
     protected View loadView(LayoutInflater inflater) {
@@ -23,7 +23,7 @@ public class YoutubeDragFragment extends BaseFragment implements AdapterView.OnI
     @Override
     protected void findView(View parentView) {
         lv = (ListView)parentView.findViewById(R.id.lv);
-        youtubeLayout = (YoutubeLayout)parentView.findViewById(R.id.youtubeLayout);
+        youtubeLayout = (YoutubeDragView)parentView.findViewById(R.id.youtubeLayout);
     }
 
     @Override

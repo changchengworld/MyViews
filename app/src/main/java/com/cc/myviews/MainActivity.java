@@ -42,10 +42,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = null;
         try {
-            intent = new Intent(this, Class.forName("com.cc.myviews."+packageNames[position]+"."+names[position]));
-//            intent = new Intent(this, galleryActivity.class);
+            Intent intent = new Intent(this, Class.forName("com.cc.myviews."+packageNames[position]+"."+names[position]));
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();

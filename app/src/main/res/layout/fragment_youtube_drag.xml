@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.cc.myviews.youtubeDragView.YoutubeLayout
+    <com.cc.myviews.youtubeDragView.YoutubeDragView
         android:id="@+id/youtubeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,8 +21,8 @@
             android:layout_height="128dp"
             android:background="#AD78CC"
             android:fontFamily="sans-serif-thin"
+            android:text="常铖最牛逼"
             android:gravity="center"
-            android:tag="text"
             android:textColor="@android:color/white"
             android:textSize="25sp"/>
 
@@ -32,10 +32,9 @@
             android:layout_height="match_parent"
             android:background="#FF00FF"
             android:gravity="center"
-            android:tag="desc"
-            android:text="Loreum Loreum"
+            android:text="常铖最牛逼"
             android:textColor="@android:color/white"
             android:textSize="35sp"/>
-    </com.cc.myviews.youtubeDragView.YoutubeLayout>
+    </com.cc.myviews.youtubeDragView.YoutubeDragView>
 
 </FrameLayout>
