@@ -11,7 +11,7 @@ import com.cc.myviews.R;
 public class YoutubeDragActivity extends BaseActivity{
     @Override
     protected void loadView() {
-        setContentView(R.layout.activity_gallery);
+        setContentView(R.layout.activity_gallery);//有个blank的就行
     }
 
     @Override

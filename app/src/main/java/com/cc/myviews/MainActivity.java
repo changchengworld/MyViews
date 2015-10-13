@@ -31,8 +31,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void initData() {
-        names = new String[]{"galleryActivity", "YoutubeDragActivity"};
-        packageNames = new String[]{"galleryview", "youtubeDragView"};
+        names = new String[]{"galleryActivity", "YoutubeDragActivity", "YahooFlashActivity"};
+        packageNames = new String[]{"galleryview", "youtubeDragView", "yahooflash"};
     }
 
     @Override
