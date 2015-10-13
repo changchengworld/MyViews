@@ -25,6 +25,12 @@ public abstract class BaseFragment extends Fragment{
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        lazyLayout(isVisibleToUser);
+    }
+
     protected abstract View loadView(LayoutInflater inflater);
 
     protected abstract void findView(View parentView);
@@ -32,4 +38,6 @@ public abstract class BaseFragment extends Fragment{
     protected abstract void init();
 
     protected void setListener(){}
+
+    protected void lazyLayout(boolean isVisibleToUser){}
 }

@@ -1,26 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
 
     <!--<onboarding.yahoo.com.yahoonewsonboarding.BookView-->
-        <!--android:id="@+id/center_box_second"-->
-        <!--android:layout_width="@dimen/dimen_120"-->
-        <!--android:layout_height="@dimen/dimen_175"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="@dimen/dimen_50"-->
-        <!--android:layout_marginTop="@dimen/dimen_80"/>-->
+    <!--android:id="@+id/center_box_second"-->
+    <!--android:layout_width="@dimen/dimen_120"-->
+    <!--android:layout_height="@dimen/dimen_175"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="@dimen/dimen_50"-->
+    <!--android:layout_marginTop="@dimen/dimen_80"/>-->
 
     <!--<onboarding.yahoo.com.yahoonewsonboarding.SunMoonView-->
-        <!--android:id="@+id/animation_view"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
+    <!--android:id="@+id/animation_view"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <com.cc.myviews.yahooflash.BookView
+        android:id="@+id/book_view"
+        android:layout_width="@dimen/dimen_120"
+        android:layout_height="@dimen/dimen_175"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_90"
+        android:background="@android:color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/YahooImageView"
+            android:src="@mipmap/blue_line"/>
+
+        <ImageView
+            style="@style/YahooImageView"
+            android:src="@mipmap/red_line"/>
+
+        <ImageView
+            style="@style/YahooImageView"
+            android:src="@mipmap/yellow_line"/>
+
+        <ImageView
+            style="@style/YahooImageView"
+            android:src="@mipmap/green_line"/>
+    </com.cc.myviews.yahooflash.BookView>
+
+    <com.cc.myviews.yahooflash.SunMoonView
+        android:id="@+id/smv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/center_box_second"
+        android:layout_below="@id/book_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dimen_40"
         android:text="@string/second_title"

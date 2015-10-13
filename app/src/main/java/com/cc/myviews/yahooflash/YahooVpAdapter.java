@@ -3,17 +3,23 @@ package com.cc.myviews.yahooflash;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.cc.myviews.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by silvercc on 15/10/12.
  */
 public class YahooVpAdapter extends FragmentPagerAdapter{
 
-    private final static int PAGE_NUM = 3;
-    public YahooVpAdapter(FragmentManager fm) {
+//    private List<BaseFragment> mList = new ArrayList<BaseFragment>();
+
+    public YahooVpAdapter(FragmentManager fm, List<BaseFragment> list) {
         super(fm);
+//        mList = list;
     }
 
     @Override
@@ -24,24 +30,23 @@ public class YahooVpAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return PAGE_NUM;
+        return 3;
     }
 
     private BaseFragment getFragmentByPosition(int position){
-        BaseFragment bfm=null;
+        BaseFragment fm = null;
         switch (position){
             case 0:
-                bfm = new YahooFirstFragment();
+                fm = new YahooFirstFragment();
                 break;
             case 1:
-                bfm = new YahooFirstFragment();
+                fm = new YahooSecondFragment();
                 break;
             case 2:
-                bfm = new YahooFirstFragment();
-                break;
-            default:
+                fm = new YahooThirdFragment();
                 break;
         }
-        return bfm;
+        return fm;
     }
+
 }

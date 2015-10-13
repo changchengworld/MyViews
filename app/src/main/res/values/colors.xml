@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dots_color">#FE2E64</color>
+    <color name="darker_gray">#aaa</color>
+
+    <color name="dark_yellow">#FE9A2E</color>
+    <color name="button_color">#01DFA5</color>
+</resources>

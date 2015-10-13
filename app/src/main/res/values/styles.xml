@@ -6,11 +6,18 @@
     </style>
 
     <style name="AntiAliasImageView" >
-        <item name="android:layout_width">225dp</item>
-        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_width">@dimen/dimen_225</item>
+        <item name="android:layout_height">@dimen/dimen_300</item>
         <item name="android:visibility">invisible</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="YahooImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_15</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
 </resources>

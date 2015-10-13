@@ -21,6 +21,8 @@
     <dimen name="dimen_230">258.75dp</dimen>
     <dimen name="dimen_200">225dp</dimen>
     <dimen name="dimen_210">236.25dp</dimen>
+    <dimen name="dimen_225">253.125dp</dimen>
+    <dimen name="dimen_300">337.5dp</dimen>
     <dimen name="dimen_22">24.75dp</dimen>
     <dimen name="dimen_15">16.875dp</dimen>
     <dimen name="dimen_25">28.125dp</dimen>
