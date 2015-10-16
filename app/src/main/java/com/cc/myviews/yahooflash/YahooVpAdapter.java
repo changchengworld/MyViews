@@ -15,22 +15,22 @@ import java.util.List;
  */
 public class YahooVpAdapter extends FragmentPagerAdapter{
 
-//    private List<BaseFragment> mList = new ArrayList<BaseFragment>();
+    private List<BaseFragment> mList;
 
     public YahooVpAdapter(FragmentManager fm, List<BaseFragment> list) {
         super(fm);
-//        mList = list;
+        mList = list;
     }
 
     @Override
     public Fragment getItem(int position) {
-        BaseFragment fm = getFragmentByPosition(position);
+        BaseFragment fm = mList.get(position);
         return fm;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return mList.size();
     }
 
     private BaseFragment getFragmentByPosition(int position){

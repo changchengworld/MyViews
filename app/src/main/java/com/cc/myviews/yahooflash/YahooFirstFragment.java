@@ -17,6 +17,7 @@ public class YahooFirstFragment extends BaseFragment {
     private RelativeLayout rl_container;
     private LayoutAnimationController mController;
     private int mChildCount;
+    private View parentView;
 
     @Override
     protected View loadView(LayoutInflater inflater) {
@@ -25,6 +26,7 @@ public class YahooFirstFragment extends BaseFragment {
 
     @Override
     protected void findView(View parentView) {
+        this.parentView= parentView;
         rl_container = (RelativeLayout)parentView.findViewById(R.id.rl_container);
     }
 
@@ -37,6 +39,12 @@ public class YahooFirstFragment extends BaseFragment {
         for (int i = 0; i < mChildCount; i++) {
             rl_container.getChildAt(i).setVisibility(View.VISIBLE);
         }
+        parentView.post(new Runnable() {
+            @Override
+            public void run() {
+                ((YahooFlashActivity) mParentContext).setTransformer();
+            }
+        });
     }
 
     @Override

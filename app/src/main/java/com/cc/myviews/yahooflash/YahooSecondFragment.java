@@ -15,6 +15,7 @@ public class YahooSecondFragment extends BaseFragment {
     private BookView book_view;
     private LayoutAnimationController controller;
     private int mChildCount;
+    private SunMoonView mSmv;
 
     @Override
     protected View loadView(LayoutInflater inflater) {
@@ -24,10 +25,12 @@ public class YahooSecondFragment extends BaseFragment {
     @Override
     protected void findView(View parentView) {
         book_view = (BookView) parentView.findViewById(R.id.book_view);
+        mSmv = (SunMoonView) parentView.findViewById(R.id.smv);
     }
 
     @Override
     protected void init() {
+        ((YahooFlashActivity)mParentContext).getCustomTransformer().setmSunMoonView(mSmv);
         mChildCount = book_view.getChildCount();
         controller = AnimationUtils.loadLayoutAnimation(mParentContext, R.anim.layout_animation);
     }

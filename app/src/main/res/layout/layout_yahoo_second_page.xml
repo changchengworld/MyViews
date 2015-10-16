@@ -22,7 +22,7 @@
         android:layout_width="@dimen/dimen_120"
         android:layout_height="@dimen/dimen_175"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_90"
+        android:layout_marginTop="@dimen/dimen_70"
         android:background="@android:color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical">
