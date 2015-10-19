@@ -27,6 +27,9 @@ public class CustomTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View page, float position) {
+        //position == 0，代表当前page处于front&&current
+        //左划，滑出界面position从0到-1，滑入界面position从1到0
+        //右划，滑出界面position从0到1，滑入界面position从－1到0
         ImageView center_box = (ImageView) page.findViewById(R.id.center_box);
         BookView book_view = (BookView) page.findViewById(R.id.book_view);
         SixBallsView sbv = (SixBallsView) page.findViewById(R.id.sbv);
