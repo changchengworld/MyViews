@@ -1,5 +1,6 @@
 package com.cc.myviews.yahooflash;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -14,6 +15,7 @@ import com.cc.myviews.R;
  */
 public class YahooFirstFragment extends BaseFragment {
 
+    private static final String TAG = "YahooFirstFragment";
     private RelativeLayout rl_container;
     private LayoutAnimationController mController;
     private int mChildCount;
@@ -26,8 +28,9 @@ public class YahooFirstFragment extends BaseFragment {
 
     @Override
     protected void findView(View parentView) {
-        this.parentView= parentView;
-        rl_container = (RelativeLayout)parentView.findViewById(R.id.rl_container);
+        Log.i(TAG, "parentView=" + parentView);
+        this.parentView = parentView;
+        rl_container = (RelativeLayout) parentView.findViewById(R.id.rl_container);
     }
 
     @Override
@@ -37,7 +40,8 @@ public class YahooFirstFragment extends BaseFragment {
         rl_container.setLayoutAnimation(mController);
         rl_container.startLayoutAnimation();
         for (int i = 0; i < mChildCount; i++) {
-            rl_container.getChildAt(i).setVisibility(View.VISIBLE);
+            View childAt = rl_container.getChildAt(i);
+            childAt.setVisibility(View.VISIBLE);
         }
         parentView.post(new Runnable() {
             @Override
@@ -50,7 +54,7 @@ public class YahooFirstFragment extends BaseFragment {
     @Override
     protected void lazyLayout(boolean isVisibleToUser) {
         super.lazyLayout(isVisibleToUser);
-        if(rl_container != null) {
+        if (rl_container != null) {
             if (isVisibleToUser) {
                 rl_container.setLayoutAnimation(mController);
                 rl_container.startLayoutAnimation();

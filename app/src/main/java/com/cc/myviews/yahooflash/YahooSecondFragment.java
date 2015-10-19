@@ -1,5 +1,6 @@
 package com.cc.myviews.yahooflash;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -12,6 +13,7 @@ import com.cc.myviews.R;
  * Created by silvercc on 15/10/12.
  */
 public class YahooSecondFragment extends BaseFragment {
+    private static final String TAG = "YahooSecondFragment";
     private BookView book_view;
     private LayoutAnimationController controller;
     private int mChildCount;
@@ -24,13 +26,14 @@ public class YahooSecondFragment extends BaseFragment {
 
     @Override
     protected void findView(View parentView) {
+        Log.i(TAG, "parentView=" + parentView);
         book_view = (BookView) parentView.findViewById(R.id.book_view);
         mSmv = (SunMoonView) parentView.findViewById(R.id.smv);
     }
 
     @Override
     protected void init() {
-        ((YahooFlashActivity)mParentContext).getCustomTransformer().setmSunMoonView(mSmv);
+        ((YahooFlashActivity) mParentContext).getCustomTransformer().setmSunMoonView(mSmv);
         mChildCount = book_view.getChildCount();
         controller = AnimationUtils.loadLayoutAnimation(mParentContext, R.anim.layout_animation);
     }

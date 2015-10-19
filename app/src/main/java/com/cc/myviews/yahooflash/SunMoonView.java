@@ -27,8 +27,11 @@ import com.cc.myviews.R;
 public class SunMoonView extends View {
     private static final String TAG = "SunMoonView";
     private final Paint mPaint;
+    //圆心x
     private final int xCoord;
+    //圆心y
     private final float yCoord;
+    //半径
     private final float radius;
     private final Bitmap mSunBitmap;
     private final Bitmap mMoonBitmap;
@@ -42,6 +45,7 @@ public class SunMoonView extends View {
     private float mPathLength;
     private float mDistance;
     private PathMeasure mPathMeasure;
+    //当前旋转方向（顺时针，逆时针）
     private Path.Direction mCurrentDirection;
 
     public SunMoonView(Context context) {
@@ -59,6 +63,7 @@ public class SunMoonView extends View {
         mPaint.setStrokeWidth(1);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.BLACK);
+        //绘制虚线，画，空，画，空。。。
         PathEffect effect = new DashPathEffect(new float[]{1f, 2f, 4f, 8f}, 1f);
         mPaint.setPathEffect(effect);
 
@@ -85,13 +90,17 @@ public class SunMoonView extends View {
         mPos = new float[2];
     }
 
+    //初始化日月旋转的路径
     private void initPath(Path.Direction dir) {
         mPath = new Path();
+        //绘制范围大小
         RectF rectF = new RectF(xCoord - radius, yCoord - radius, xCoord + radius, yCoord + radius);
 
         if (dir == Path.Direction.CW) {
+            //顺时针路径
             mPath.addArc(rectF, 50, 359);
         } else {
+            //逆时针路径
             mPath.addArc(rectF, 50, -359);
         }
         mPath.close();
@@ -106,12 +115,17 @@ public class SunMoonView extends View {
         drawMoon(canvas);
     }
 
+    /**
+     * 画月亮
+     *
+     * @param canvas
+     */
     private void drawMoon(Canvas canvas) {
         if (mDistance < mPathLength) {
             mMatrix.reset();
-            if (mDistance + mPathLength / 2 <= mPathLength) {
+            if (mDistance + mPathLength / 2 <= mPathLength) {//月亮在左半边
                 mPathMeasure.getPosTan(mDistance + mPathLength / 2, mPos, null);
-            } else {
+            } else {//月亮在右半边
                 mPathMeasure.getPosTan(mDistance - mPathLength / 2, mPos, null);
             }
             mMatrix.postTranslate(mPos[0] - mMoonXOffset, mPos[1] - mMoonYOffset);
@@ -119,6 +133,11 @@ public class SunMoonView extends View {
         }
     }
 
+    /**
+     * 画太阳
+     *
+     * @param canvas
+     */
     private void drawSun(Canvas canvas) {
         if (mDistance < mPathLength) {
             mMatrix.reset();
@@ -128,6 +147,11 @@ public class SunMoonView extends View {
         }
     }
 
+    /**
+     * 顺时针旋转
+     *
+     * @param position ［0，1］
+     */
     public void doClockWiseAnimation(float position) {
         Log.i(TAG, "position=" + position);
         if (mCurrentDirection == Path.Direction.CCW) {
@@ -139,6 +163,11 @@ public class SunMoonView extends View {
         invalidate();
     }
 
+    /**
+     * 逆时针旋转
+     *
+     * @param position ［－1，0］
+     */
     public void doAnitClockWiseAnimation(float position) {
         Log.i(TAG, "position=" + position);
         if (mCurrentDirection == Path.Direction.CW) {
@@ -146,9 +175,7 @@ public class SunMoonView extends View {
             initPath(mCurrentDirection);
             invalidate();
         }
-        if (Math.abs(position) <= 1) {
-            mDistance = mPathLength / 2 * (Math.abs(1 + position));
-        }
+        mDistance = mPathLength / 2 * (Math.abs(1 + position));
         invalidate();
     }
 }

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-    <!--<onboarding.yahoo.com.yahoonewsonboarding.ThirdScreenView-->
-        <!--android:id="@+id/round_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
 
     <com.cc.myviews.yahooflash.SixBallsView
         android:id="@+id/sbv"

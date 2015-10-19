@@ -30,6 +30,8 @@ public class BookView extends LinearLayout {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(2f);
         mPaint.setColor(Color.BLACK);
+        //正常情况下，因为viewgroup包括其子类是透明的，所以不会调用onDraw方法，调用此api可调用onDraw方法
+        //还有中办法，可以将这个viewgroup设置成有背景色的，也会调用ondraw方法
         setWillNotDraw(false);
     }
 
