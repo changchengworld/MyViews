@@ -5,4 +5,8 @@
 
     <color name="dark_yellow">#FE9A2E</color>
     <color name="button_color">#01DFA5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="tv_red">#ff3c1f</color>
+    <color name="bg_green">#39bf7b</color>
+    <color name="bg_color_gray">#f3f3f3</color>
 </resources>

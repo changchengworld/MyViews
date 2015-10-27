@@ -262,18 +262,6 @@ public class ImageSlidingGallery extends FrameLayout {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {//必须实现
-        //判断父控件是否拦截此事件
-        boolean shouldInterceptTouchEvent = mViewDragHelper.shouldInterceptTouchEvent(ev);
-        int actionMasked = ev.getActionMasked();
-        if (actionMasked == MotionEvent.ACTION_DOWN) {
-            //按下时将事件传递给draghelper
-            mViewDragHelper.processTouchEvent(ev);
-        }
-        return shouldInterceptTouchEvent;
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {//必须实现
         //将事件传递给draghelper
         mViewDragHelper.processTouchEvent(event);

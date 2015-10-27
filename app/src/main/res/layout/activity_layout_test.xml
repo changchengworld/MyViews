@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.cc.myviews.test.TpoListenLayout
+        android:id="@+id/tpo_listen_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/image_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/bg_green"/>
+
+        <RelativeLayout
+            android:id="@+id/pb_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/image_container"
+            android:background="@color/bg_color_gray"/>
+
+        <com.cc.myviews.test.TestLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/pb_container"
+            android:background="@color/tv_red">
+
+            <TextView
+                android:id="@+id/tv_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="点击此处"/>
+        </com.cc.myviews.test.TestLayout>
+    </com.cc.myviews.test.TpoListenLayout>
+
+</FrameLayout>

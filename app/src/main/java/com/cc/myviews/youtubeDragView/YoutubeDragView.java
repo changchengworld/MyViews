@@ -46,6 +46,8 @@ public class YoutubeDragView extends FrameLayout {
      */
     public void smoothSlideto(float f) {
         float finalTop = mDragRange * f;
+        Log.i(TAG, "mViewHeader.getLeft()="+mViewHeader.getLeft());
+        Log.i(TAG, "mViewHeader.getMeasuredWidth()="+mViewHeader.getMeasuredWidth());
         if (mViewDragHelper.smoothSlideViewTo(mViewHeader, mViewHeader.getLeft(), (int) finalTop)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
@@ -70,7 +72,6 @@ public class YoutubeDragView extends FrameLayout {
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             mTop = top;
-            Log.i(TAG, "top=" + top);
             //移动的比例
             offset = (float) top / mDragRange;
             //设置mViewHeader的缩放轴
@@ -104,12 +105,7 @@ public class YoutubeDragView extends FrameLayout {
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            /**限制y方向的移动位置。如果返回值为0，则无法在纵向拖动，重写此方法目的在于限制拖动的范围
-             * 当被拖动控件的top为0时，表明此控件已经全屏展开，当bottomBond为0时，表示控件已缩到mViewHeader.getHeight()大小。
-             * */
-            int bottomBond = getHeight() - mViewHeader.getHeight() - mViewHeader.getPaddingBottom();
-            //Math.max(top, 0)此为限制top永远>=0
-            return Math.min(Math.max(top, 0), bottomBond);
+            return Math.min(Math.max(top, 0), mDragRange);
         }
 
         @Override

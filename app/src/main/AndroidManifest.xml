@@ -20,6 +20,7 @@
         <activity android:name=".galleryview.galleryActivity"/>
         <activity android:name=".youtubeDragView.YoutubeDragActivity"/>
         <activity android:name=".yahooflash.YahooFlashActivity"/>
+        <activity android:name=".test.TestActivity"/>
     </application>
 
 </manifest>
